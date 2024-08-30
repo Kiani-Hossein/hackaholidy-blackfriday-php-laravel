@@ -12,6 +12,6 @@ This project is a Laravel-based application for the BlackFriday event. This guid
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/hackaholidy-blackfriday-php-laravel.git
+   git clone https://github.com/Kiani-Hossein/hackaholidy-blackfriday-php-laravel
    cd hackaholidy-blackfriday-php-laravel
 
