@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    image: php:8.3-fpm
+    container_name: blackfriday_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./blackfriday-src:/var/www/html
+    ports:
+      - "8000:80"
+    working_dir: /var/www/html
+    environment:
+      - DB_HOST=star_postgres
+      - DB_PORT=5432
+      - DB_DATABASE=black_friday_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=!@#123qwe
+
+  web:
+    image: nginx:latest
+    container_name: blackfriday_web
+    ports:
+      - "80:80"
+    volumes:
+      - ./blackfriday-src:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+  postgres:
+    image: postgres:latest
+    container_name: star_postgres
+    environment:
+      POSTGRES_DB: black_friday_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "!@#123qwe"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
